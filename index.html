@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devesh Rawat | Android Developer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#8b5cf6',
+            secondary: '#10b981',
+            dark: '#0f172a',
+            light: '#f8fafc',
+            surface: '#1e293b',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style type="text/css">
+    .gradient-text {
+      background: linear-gradient(90deg, #8b5cf6, #10b981);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .gradient-bg {
+      background: linear-gradient(135deg, #8b5cf6, #10b981);
+    }
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(139, 92, 246, 0.2), 0 10px 10px -5px rgba(139, 92, 246, 0.1);
+    }
+    .section-title {
+      position: relative;
+      display: inline-block;
+    }
+    .section-title:after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 50%;
+      height: 3px;
+      background: linear-gradient(90deg, #8b5cf6, #10b981);
+      border-radius: 3px;
+    }
+    .blob {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: linear-gradient(180deg, rgba(139, 92, 246, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+      z-index: -1;
+      animation: blob-animate 20s infinite alternate;
+      filter: blur(30px);
+    }
+    @keyframes blob-animate {
+      0% {
+        transform: translate(0px, 0px) scale(1);
+      }
+      33% {
+        transform: translate(30px, -50px) scale(1.1);
+      }
+      66% {
+        transform: translate(-20px, 20px) scale(0.9);
+      }
+      100% {
+        transform: translate(0px, 0px) scale(1);
+      }
+    }
+    .social-icon {
+      transition: all 0.3s ease;
+    }
+    .social-icon:hover {
+      transform: scale(1.2);
+    }
+    .nav-link {
+      position: relative;
+    }
+    .nav-link:after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background-color: #8b5cf6;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover:after {
+      width: 100%;
+    }
+    .hindi-text {
+      font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
+    }
+    .resume-btn {
+      position: relative;
+      overflow: hidden;
+    }
+    .resume-btn:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: all 0.5s ease;
+    }
+    .resume-btn:hover:after {
+      left: 100%;
+    }
+    .progress-bar {
+      height: 6px;
+      border-radius: 3px;
+      background-color: #1e293b;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #8b5cf6, #10b981);
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body class="bg-dark text-light font-sans antialiased overflow-x-hidden">
+  <!-- Navigation -->
+  <header class="fixed w-full z-50 bg-surface/90 backdrop-blur-md transition-all duration-300 shadow-sm">
+    <div class="container mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <a href="#home" class="text-2xl font-bold">
+          <span class="gradient-text">Devesh Rawat</span>
+        </a>
+        
+        <nav class="hidden md:flex space-x-8">
+          <a href="#home" class="nav-link text-light hover:text-primary transition-colors duration-300">Home</a>
+          <a href="#skills" class="nav-link text-light hover:text-primary transition-colors duration-300">Skills</a>
+          <a href="#projects" class="nav-link text-light hover:text-primary transition-colors duration-300">Projects</a>
+          <a href="#experience" class="nav-link text-light hover:text-primary transition-colors duration-300">Experience</a>
+          <a href="#contact" class="nav-link text-light hover:text-primary transition-colors duration-300">Contact</a>
+          <a href="/DeveshResume.pdf" download class="gradient-bg hover:opacity-90 text-white font-medium py-2 px-4 rounded-lg transition-all duration-300 flex items-center resume-btn">
+            <i class="fas fa-download mr-2"></i>
+            Resume
+          </a>
+        </nav>
+        
+        <button id="menu-toggle" class="md:hidden focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-surface py-4 px-6">
+      <div class="flex flex-col space-y-4">
+        <a href="#home" class="text-light hover:text-primary transition-colors duration-300">Home</a>
+        <a href="#skills" class="text-light hover:text-primary transition-colors duration-300">Skills</a>
+        <a href="#projects" class="text-light hover:text-primary transition-colors duration-300">Projects</a>
+        <a href="#experience" class="text-light hover:text-primary transition-colors duration-300">Experience</a>
+        <a href="#contact" class="text-light hover:text-primary transition-colors duration-300">Contact</a>
+        <a href="/Devesh_Rawat_Resume.pdf" download class="gradient-bg hover:opacity-90 text-white font-medium py-2 px-4 rounded-lg transition-all duration-300 flex items-center justify-center mt-4 resume-btn">
+          <i class="fas fa-download mr-2"></i>
+          Download Resume
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="min-h-screen flex items-center pt-20 relative overflow-hidden">
+    <div class="blob animate-pulse-slow top-0 -right-64"></div>
+    <div class="blob animate-pulse-slow bottom-0 -left-64"></div>
+    
+    <div class="container mx-auto px-6 py-20 md:py-32">
+      <div class="flex flex-col md:flex-row items-center">
+        <div class="md:w-1/2 mb-12 md:mb-0 animate__animated animate__fadeInLeft">
+          <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+            <span class="hindi-text text-primary">नमस्ते</span>, I'm <span class="gradient-text">Devesh Rawat</span>
+          </h1>
+          <h2 class="text-2xl md:text-3xl text-primary mb-8">Android Developer</h2>
+          <p class="text-lg md:text-xl text-gray-300 mb-6 max-w-lg leading-relaxed">
+            Passionate Android Developer skilled in Kotlin, Jetpack Compose, and Java, with hands-on experience in building AI-driven and utility apps that deliver seamless user experiences.
+          </p>
+          <div class="flex flex-wrap gap-4 mb-8">
+            <div class="flex items-center text-gray-400 bg-surface px-4 py-2 rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span>Rishikesh, Uttarakhand</span>
+            </div>
+            <div class="flex items-center text-gray-400 bg-surface px-4 py-2 rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <span>devesh08rawat@gmail.com</span>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-4">
+            <a href="#projects" class="gradient-bg hover:opacity-90 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-primary/30 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+              </svg>
+              View My Work
+            </a>
+            <a href="/DeveshResume.pdf" download class="border border-primary text-primary hover:bg-primary/10 font-medium py-3 px-6 rounded-lg transition-all duration-300 flex items-center resume-btn">
+              <i class="fas fa-file-pdf mr-2"></i>
+              Download Resume
+            </a>
+          </div>
+        </div>
+        <div class="md:w-1/2 flex justify-center animate__animated animate__fadeInRight">
+          <div class="relative w-64 h-64 md:w-80 md:h-80">
+            <div class="absolute inset-0 bg-gradient-to-br from-primary to-secondary rounded-full blur-xl opacity-20 animate-pulse"></div>
+            <!-- Replace with your actual image path -->
+            <img src="/Devesh.jpg" 
+                 alt="Devesh Rawat" 
+                 class="relative w-full h-full object-cover rounded-full border-4 border-surface shadow-2xl transition-all duration-500 hover:rotate-3 hover:scale-105">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ <!-- Skills Section -->
+ <section id="skills" class="py-20 bg-surface relative overflow-hidden">
+  <div class="blob top-0 left-0 opacity-20"></div>
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title inline-block">My <span class="gradient-text">Skills</span></h2>
+      <p class="text-gray-400 max-w-2xl mx-auto mt-4">
+        Technologies I've been working with to create amazing digital experiences
+      </p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Languages -->
+      <div class="bg-dark p-8 rounded-xl card-hover">
+        <div class="text-primary mb-6">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold mb-3">Programming Languages</h3>
+        <p class="text-gray-400 mb-4">
+          Strong foundation in multiple programming languages for diverse development needs.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-2">
+          <span class="bg-primary/10 text-primary px-3 py-1 rounded-full flex items-center">
+            <span class="w-2 h-2 bg-primary rounded-full mr-2"></span>
+            Kotlin
+          </span>
+          <span class="bg-primary/10 text-primary px-3 py-1 rounded-full flex items-center">
+            <span class="w-2 h-2 bg-primary rounded-full mr-2"></span>
+            Java
+          </span>
+          <span class="bg-primary/10 text-primary px-3 py-1 rounded-full flex items-center">
+            <span class="w-2 h-2 bg-primary rounded-full mr-2"></span>
+            Python
+          </span>
+          <span class="bg-primary/10 text-primary px-3 py-1 rounded-full flex items-center">
+            <span class="w-2 h-2 bg-primary rounded-full mr-2"></span>
+            C/C++
+          </span>
+        </div>
+      </div>
+      
+      <!-- Android Development -->
+      <div class="bg-dark p-8 rounded-xl card-hover">
+        <div class="text-primary mb-6">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold mb-3">Android Development</h3>
+        <p class="text-gray-400 mb-4">
+          Modern Android development with Jetpack Compose and architecture components.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-2">
+          <span class="bg-primary/10 text-primary px-3 py-1 rounded-full flex items-center">
+            <span class="w-2 h-2 bg-primary rounded-full mr-2"></span>
+            Jetpack Compose
+          </span>
+          <span class="bg-primary/10 text-primary px-3 py-1 rounded-full flex items-center">
+            <span class="w-2 h-2 bg-primary rounded-full mr-2"></span>
+            State Management
+          </span>
+          <span class="bg-primary/10 text-primary px-3 py-1 rounded-full flex items-center">
+            <span class="w-2 h-2 bg-primary rounded-full mr-2"></span>
+            Gemini API
+          </span>
+          <span class="bg-primary/10 text-primary px-3 py-1 rounded-full flex items-center">
+            <span class="w-2 h-2 bg-primary rounded-full mr-2"></span>
+            Room DB
+          </span>
+        </div>
+      </div>
+      
+      <!-- Tools & Web -->
+      <div class="bg-dark p-8 rounded-xl card-hover">
+        <div class="text-primary mb-6">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold mb-3">Tools & Web</h3>
+        <p class="text-gray-400 mb-4">
+          Development tools and web technologies I work with.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-2">
+          <span class="bg-primary/10 text-primary px-3 py-1 rounded-full flex items-center">
+            <span class="w-2 h-2 bg-primary rounded-full mr-2"></span>
+            Git
+          </span>
+          <span class="bg-primary/10 text-primary px-3 py-1 rounded-full flex items-center">
+            <span class="w-2 h-2 bg-primary rounded-full mr-2"></span>
+            Android Studio
+          </span>
+          <span class="bg-primary/10 text-primary px-3 py-1 rounded-full flex items-center">
+            <span class="w-2 h-2 bg-primary rounded-full mr-2"></span>
+            VS Code
+          </span>
+          <span class="bg-primary/10 text-primary px-3 py-1 rounded-full flex items-center">
+            <span class="w-2 h-2 bg-primary rounded-full mr-2"></span>
+            Responsive Design
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="py-20 relative overflow-hidden">
+    <div class="blob bottom-0 right-0 opacity-20"></div>
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title inline-block">Featured <span class="gradient-text">Projects</span></h2>
+        <p class="text-gray-400 max-w-2xl mx-auto mt-4">
+          Some of my recent work and contributions that showcase my skills
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- DevBot -->
+        <div class="bg-surface rounded-xl overflow-hidden shadow-lg card-hover">
+          <div class="h-48 overflow-hidden relative">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark/80 to-transparent z-10"></div>
+            <!-- Replace with your actual project image path -->
+            <img src="/chatbot.jpg" 
+                 alt="DevBot AI Chatbot" 
+                 class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+            <div class="absolute bottom-0 left-0 z-20 p-4">
+              <h3 class="text-xl font-bold text-white">DevBot – AI Chatbot</h3>
+            </div>
+          </div>
+          <div class="p-6">
+            <p class="text-gray-400 mb-4">
+              Integrated Google's Gemini API to create an AI chatbot with real-time responses and responsive UI.
+            </p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-dark text-primary text-xs font-medium px-3 py-1 rounded-full">Android</span>
+              <span class="bg-dark text-primary text-xs font-medium px-3 py-1 rounded-full">Kotlin</span>
+              <span class="bg-dark text-primary text-xs font-medium px-3 py-1 rounded-full">Gemini API</span>
+            </div>
+            <div class="flex space-x-4">
+              <a href="https://github.com/devesh-rawat/MyOwnBot" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary/80 flex items-center transition-colors duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
+                View Code
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Expense Tracker -->
+        <div class="bg-surface rounded-xl overflow-hidden shadow-lg card-hover">
+          <div class="h-48 overflow-hidden relative">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark/80 to-transparent z-10"></div>
+            <!-- Replace with your actual project image path -->
+            <img src="/expense.jpeg" 
+                 alt="Expense Tracker App" 
+                 class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+            <div class="absolute bottom-0 left-0 z-20 p-4">
+              <h3 class="text-xl font-bold text-white">Expense Tracker App</h3>
+            </div>
+          </div>
+          <div class="p-6">
+            <p class="text-gray-400 mb-4">
+              Finance app with color-coded categories, transaction history, and dynamic charts.
+            </p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-dark text-primary text-xs font-medium px-3 py-1 rounded-full">Android</span>
+              <span class="bg-dark text-primary text-xs font-medium px-3 py-1 rounded-full">Jetpack Compose</span>
+              <span class="bg-dark text-primary text-xs font-medium px-3 py-1 rounded-full">Room DB</span>
+            </div>
+            <div class="flex space-x-4">
+              <a href="https://github.com/devesh-rawat/ExpenseTrackerProject" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary/80 flex items-center transition-colors duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
+                View Code
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Certificate Generator -->
+        <div class="bg-surface rounded-xl overflow-hidden shadow-lg card-hover">
+          <div class="h-48 overflow-hidden relative">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark/80 to-transparent z-10"></div>
+            <!-- Replace with your actual project image path -->
+            <img src="/certificate.png" 
+                 alt="Automatic Certificate Generator" 
+                 class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+            <div class="absolute bottom-0 left-0 z-20 p-4">
+              <h3 class="text-xl font-bold text-white">Certificate Generator</h3>
+            </div>
+          </div>
+          <div class="p-6">
+            <p class="text-gray-400 mb-4">
+              Automated certificate creation for 100+ recipients using Pillow and Excel data and Automatically Certificate Distribution.
+            </p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-dark text-primary text-xs font-medium px-3 py-1 rounded-full">Python</span>
+              <span class="bg-dark text-primary text-xs font-medium px-3 py-1 rounded-full">Pillow</span>
+              <span class="bg-dark text-primary text-xs font-medium px-3 py-1 rounded-full">Selenium</span>
+            </div>
+            <div class="flex space-x-4">
+              <a href="https://github.com/devesh-rawat/Certificate-Generation-Program" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary/80 flex items-center transition-colors duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
+                View Code
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience & Education Section -->
+  <section id="experience" class="py-20 bg-surface relative overflow-hidden">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title inline-block">Experience & <span class="gradient-text">Education</span></h2>
+        <p class="text-gray-400 max-w-2xl mx-auto mt-4">
+          My professional journey and academic background
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Experience -->
+        <div>
+          <h3 class="text-2xl font-bold mb-6 text-primary flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            Experience
+          </h3>
+          
+          <!-- Student Coordinator -->
+          <div class="mb-8 relative pl-10 before:absolute before:left-5 before:top-0 before:h-full before:w-1 before:bg-gradient-to-b before:from-primary before:to-secondary">
+            <div class="flex items-start">
+              <div class="absolute left-0 top-0 bg-primary/10 text-primary p-2 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+              </div>
+              <div>
+                <h4 class="text-xl font-bold">Student Coordinator</h4>
+                <p class="text-gray-400">Counsellor Counselee Program, UTU Dehradun | Apr 2024 – Jan 2025</p>
+                <ul class="mt-2 text-gray-400 space-y-2">
+                  <li class="flex items-start">
+                    <svg class="h-4 w-4 text-primary mt-1 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Organized mentorship sessions with IES officers and industry experts</span>
+                  </li>
+                  <li class="flex items-start">
+                    <svg class="h-4 w-4 text-primary mt-1 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Managed 20+ student-counselor pairs</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Education -->
+        <div>
+          <h3 class="text-2xl font-bold mb-6 text-primary flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path d="M12 14l9-5-9-5-9 5 9 5z" />
+              <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+            </svg>
+            Education
+          </h3>
+          
+          <!-- B.Tech -->
+          <div class="mb-8 relative pl-10 before:absolute before:left-5 before:top-0 before:h-full before:w-1 before:bg-gradient-to-b before:from-primary before:to-secondary">
+            <div class="flex items-start">
+              <div class="absolute left-0 top-0 bg-primary/10 text-primary p-2 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <h4 class="text-xl font-bold">B.Tech, Computer Science</h4>
+                <p class="text-gray-400">Veer Madho Singh Bhandari UTU, Dehradun | 2023–2027</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Class 12 -->
+          <div class="mb-8 relative pl-10 before:absolute before:left-5 before:top-0 before:h-full before:w-1 before:bg-gradient-to-b before:from-primary before:to-secondary">
+            <div class="flex items-start">
+              <div class="absolute left-0 top-0 bg-primary/10 text-primary p-2 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <h4 class="text-xl font-bold">Class 12 (CBSE – Science)</h4>
+                <p class="text-gray-400">Doon International Public School, Rishikesh | 96.8% | 2022</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Class 10 -->
+          <div class="mb-8 relative pl-10 before:absolute before:left-5 before:top-0 before:h-full before:w-1 before:bg-gradient-to-b before:from-primary before:to-secondary">
+            <div class="flex items-start">
+              <div class="absolute left-0 top-0 bg-primary/10 text-primary p-2 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <h4 class="text-xl font-bold">Class 10 (CBSE)</h4>
+                <p class="text-gray-400">Doon International Public School, Rishikesh | 95.4% | 2020</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 relative overflow-hidden">
+    <div class="blob top-0 left-0 opacity-10"></div>
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title inline-block">Get In <span class="gradient-text">Touch</span></h2>
+        <p class="text-gray-400 max-w-2xl mx-auto mt-4">
+          Feel free to reach out for collaborations or just a friendly hello
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+        <!-- Email -->
+        <div class="bg-surface p-8 rounded-xl shadow-lg text-center hover:shadow-primary/20 transition-all duration-300 transform hover:-translate-y-2">
+          <div class="text-primary mb-6 mx-auto w-16 h-16 flex items-center justify-center rounded-full bg-dark/20">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Email</h3>
+          <p class="text-gray-400 mb-2">devesh08rawat@gmail.com</p>
+          <a href="mailto:devesh08rawat@gmail.com" class="text-primary hover:text-primary/80 text-sm font-medium transition-colors duration-300">
+            Send a message
+          </a>
+        </div>
+        
+        <!-- Phone -->
+        <div class="bg-surface p-8 rounded-xl shadow-lg text-center hover:shadow-primary/20 transition-all duration-300 transform hover:-translate-y-2">
+          <div class="text-primary mb-6 mx-auto w-16 h-16 flex items-center justify-center rounded-full bg-dark/20">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Phone</h3>
+          <p class="text-gray-400 mb-2">+91-7078140054</p>
+          <a href="tel:+917078140054" class="text-primary hover:text-primary/80 text-sm font-medium transition-colors duration-300">
+            Call me
+          </a>
+        </div>
+        
+        <!-- Location -->
+        <div class="bg-surface p-8 rounded-xl shadow-lg text-center hover:shadow-primary/20 transition-all duration-300 transform hover:-translate-y-2">
+          <div class="text-primary mb-6 mx-auto w-16 h-16 flex items-center justify-center rounded-full bg-dark/20">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Location</h3>
+          <p class="text-gray-400 mb-2">Rishikesh, Uttarakhand</p>
+          <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary/80 text-sm font-medium transition-colors duration-300">
+            View on map
+          </a>
+        </div>
+      </div>
+      
+      <!-- Social Links -->
+      <div class="mt-16 text-center">
+        <h3 class="text-xl font-bold mb-6">Connect with me</h3>
+        <div class="flex justify-center space-x-6">
+          <a href="https://www.linkedin.com/in/devesh-rawat-35a50b271/" target="_blank" rel="noopener noreferrer" class="social-icon text-gray-400 hover:text-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-2v-6h2v6zm-1-6.891c-.607 0-1.1-.496-1.1-1.109 0-.612.492-1.109 1.1-1.109s1.1.497 1.1 1.109c0 .613-.493 1.109-1.1 1.109zm8 6.891h-1.998v-2.861c0-1.881-2.002-1.722-2.002 0v2.861h-2v-6h2v1.093c.872-1.616 4-1.736 4 1.548v3.359z" />
+            </svg>
+          </a>
+          <a href="https://github.com/devesh-rawat" target="_blank" rel="noopener noreferrer" class="social-icon text-gray-400 hover:text-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-surface py-12">
+    <div class="container mx-auto px-6">
+      <div class="flex flex-col items-center">
+        <a href="#home" class="text-2xl font-bold mb-6">
+          <span class="gradient-text">Devesh Rawat</span>
+        </a>
+        <p class="text-gray-400 text-center max-w-2xl mb-8">
+          Passionate Android Developer creating impactful mobile experiences
+        </p>
+        <div class="flex space-x-6 mb-8">
+          <a href="https://www.linkedin.com/in/devesh-rawat-35a50b271/" target="_blank" rel="noopener noreferrer" class="social-icon text-gray-400 hover:text-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-2v-6h2v6zm-1-6.891c-.607 0-1.1-.496-1.1-1.109 0-.612.492-1.109 1.1-1.109s1.1.497 1.1 1.109c0 .613-.493 1.109-1.1 1.109zm8 6.891h-1.998v-2.861c0-1.881-2.002-1.722-2.002 0v2.861h-2v-6h2v1.093c.872-1.616 4-1.736 4 1.548v3.359z" />
+            </svg>
+          </a>
+          <a href="https://github.com/devesh-rawat" target="_blank" rel="noopener noreferrer" class="social-icon text-gray-400 hover:text-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+            </svg>
+          </a>
+        </div>
+        <p class="text-gray-500 text-sm">
+          © 2025 Devesh Rawat. All rights reserved.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      menuToggle.classList.toggle('text-primary');
+    });
+    
+    // Close mobile menu when clicking a link
+    document.querySelectorAll('#mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        menuToggle.classList.remove('text-primary');
+      });
+    });
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      if (anchor.getAttribute('href') !== '#') {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          // Close mobile menu if open
+          mobileMenu.classList.add('hidden');
+          menuToggle.classList.remove('text-primary');
+          
+          document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+          });
+        });
+      }
+    });
+    
+    // Add shadow to header on scroll
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('header');
+      if (window.scrollY > 50) {
+        header.classList.add('shadow-lg');
+      } else {
+        header.classList.remove('shadow-lg');
+      }
+    });
+    
+    // Animation on scroll
+    const animateOnScroll = () => {
+      const elements = document.querySelectorAll('.card-hover, [class*="hover:-translate-y"]');
+      
+      elements.forEach(element => {
+        const elementPosition = element.getBoundingClientRect().top;
+        const screenPosition = window.innerHeight / 1.2;
+        
+        if (elementPosition < screenPosition) {
+          element.classList.add('animate__animated', 'animate__fadeInUp');
+        }
+      });
+    };
+    
+    window.addEventListener('scroll', animateOnScroll);
+    window.addEventListener('load', animateOnScroll);
+    
+    // Add animation to section titles
+    document.querySelectorAll('.section-title').forEach(title => {
+      title.classList.add('animate__animated', 'animate__fadeInDown');
+    });
+  </script>
+</body>
+</html>
